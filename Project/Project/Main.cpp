@@ -4,8 +4,7 @@
 #include "Init.h"
 #include "PostOffice.h"
 
-#define KEY_SEEN     1
-#define KEY_RELEASED 2
+
 
 int main()
 {
@@ -16,7 +15,7 @@ int main()
 	}
 
 	ALLEGRO_DISPLAY * Screen = al_create_display(width, height);
-	ALLEGRO_TIMER * time = al_create_timer(1.0 / FPS);
+	ALLEGRO_TIMER * time = al_create_timer(TimeBetweenFrames);
 	ALLEGRO_EVENT_QUEUE * queue = al_create_event_queue();
 	
 	if (!SecondInit(Screen, time, queue))
@@ -28,8 +27,7 @@ int main()
 	memset(key, 0, sizeof(key));
 
 	ALLEGRO_EVENT event;
-
-	PostOffice * all;
+	PostOffice * all = new PostOffice;
 
 	bool DontStopMeNow = 1;
 
@@ -39,27 +37,8 @@ int main()
 	while (DontStopMeNow)
 	{
 		al_wait_for_event(queue, &event);
-		switch (event.type)
-		{
-		case ALLEGRO_EVENT_TIMER:
-
-			DontStopMeNow = Controls(key, all);
-			break;
-
-		case ALLEGRO_EVENT_KEY_DOWN:
-			key[event.keyboard.keycode] = KEY_SEEN | KEY_RELEASED;
-			break;
-
-		case ALLEGRO_EVENT_KEY_UP:
-			key[event.keyboard.keycode] &= KEY_RELEASED;
-			break;
-
-		case ALLEGRO_EVENT_DISPLAY_CLOSE:
-			DontStopMeNow = false;
-
-		default:
-			break;
-		}
+		DealWithEvent(&event, key, all, DontStopMeNow);
+		
 		/*switch (a)
 		{
 		case 0:
@@ -85,6 +64,6 @@ int main()
 		al_flip_display();
 	}
 
-
+	//delete PostOffice * all (delete all)
 	return 0;
 }

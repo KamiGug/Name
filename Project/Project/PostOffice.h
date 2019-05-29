@@ -9,9 +9,13 @@ public:
 	PostOffice();
 	~PostOffice();
 
+	Player* GivePlayer();
+	std::vector<PowerUp*> GivePowerUp();
+
 private:
 	Player* player;
-	std::vector<PowerUp> IncreasePower;
+	std::vector<PowerUp*> IncreasePower;
+
 	//cokolwiek dalej
 };
 

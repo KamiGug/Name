@@ -2,7 +2,7 @@
 #include "Necessities.h"
 #include "Frame.h"
 
-typedef enum {standing, walking, jumping, falling} WhatIsDoing;
+typedef enum {standing, walking, jumping, falling, climbing, crouching} WhatIsDoing;
 
 class Object
 {
@@ -11,9 +11,12 @@ public:
 	virtual ~Object();
 	virtual void Draw();
 	virtual void ChangeSpeed(double X, double Y);
+	virtual void ChangeSpeedTo(double X, double Y);
 	virtual void Move();
+	void Jump();
+	bool IsDoingThis(WhatIsDoing This);
 
-private:
+protected:
 	//drawing thingies
 	double x;
 	double y;
@@ -27,8 +30,8 @@ private:
 	int HowLongBeen;
 	int MaxHowLong;
 
-	Frame * Standing;
-	int StandingLength;
+	Frame * CurrentFrame;
+	int CurrentFrameLength;
 
 	
 	/*ALLEGRO_BITMAP ** Walking;
@@ -36,8 +39,8 @@ private:
 	ALLEGRO_BITMAP ** Falling;
 	int WalkingLength;
 	int JumpingLength;
-	int Falling;
-	WhatIsDoing IsDoing;*/
+	int Falling;*/
+	WhatIsDoing IsDoing;
 	
 };
 

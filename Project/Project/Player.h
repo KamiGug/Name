@@ -3,12 +3,14 @@
 class Player :	public Object
 {
 public:
-	static void AddPlayer();
+	//static void AddPlayer();
 	//void AddPlayer(jakieś zmienne);
 	~Player();
-
-private:
 	Player();
+	void Crouch(bool DoIt);
+	bool IsThisCrouching();
 
+protected:
+	bool IsCrouching = 0;
 };
 
